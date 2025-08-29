@@ -1,0 +1,18 @@
+{
+  "posts": [
+    {
+      "kode": "MAL-TAK-2S",
+      "tittel": "Male tak, 2 strøk",
+      "struktur": "Himling",
+      "enhet": "m2",
+      "prisArbeid": 125
+    },
+    {
+      "kode": "MAL-VEGG-2S",
+      "tittel": "Male vegg, 2 strøk",
+      "struktur": "Vegg",
+      "enhet": "m2",
+      "prisArbeid": 115
+    }
+  ]
+}

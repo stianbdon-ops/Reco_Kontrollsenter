@@ -1,0 +1,11 @@
+{
+  "posts": [
+    {
+      "kode": "MEM-SMØR",
+      "tittel": "Membran våtrom (smøremembran)",
+      "struktur": "Våtrom",
+      "enhet": "m2",
+      "prisArbeid": 220
+    }
+  ]
+}

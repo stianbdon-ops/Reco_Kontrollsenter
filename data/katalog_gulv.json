@@ -1,0 +1,18 @@
+{
+  "posts": [
+    {
+      "kode": "GUL-PARK",
+      "tittel": "Legge parkett",
+      "struktur": "Gulv",
+      "enhet": "m2",
+      "prisArbeid": 160
+    },
+    {
+      "kode": "GUL-LAM",
+      "tittel": "Legge laminat",
+      "struktur": "Gulv",
+      "enhet": "m2",
+      "prisArbeid": 150
+    }
+  ]
+}

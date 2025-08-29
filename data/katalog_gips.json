@@ -1,0 +1,18 @@
+{
+  "posts": [
+    {
+      "kode": "GIP-VEGG",
+      "tittel": "Montere gips vegg",
+      "struktur": "Vegg",
+      "enhet": "m2",
+      "prisArbeid": 125
+    },
+    {
+      "kode": "GIP-HIM",
+      "tittel": "Montere gips himling",
+      "struktur": "Himling",
+      "enhet": "m2",
+      "prisArbeid": 130
+    }
+  ]
+}

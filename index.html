@@ -1,40 +1,93 @@
 
 <!doctype html>
-<html>
+<html lang="no">
 <head>
   <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>RECO v31.8 Selftest</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>RECO Kontrollsenter · v31.9</title>
   <link rel="stylesheet" href="style.css"/>
+  <!-- Netlify Identity widget -->
   <script defer src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  <!-- jsPDF + SheetJS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 </head>
 <body>
+  <!-- Login overlay -->
   <div id="loginOverlay">
     <div id="loginCard">
+      <img src="assets/logo.svg" height="28" alt="RECO"/>
       <h2>Logg inn</h2>
-      <p>Denne selftest viser overlay til du faktisk logger inn med Netlify Identity.</p>
-      <button id="btnOverlayLogin">Logg inn</button>
+      <p>Kun inviterte brukere (@reco.no). Invite only.</p>
+      <button id="btnOverlayLogin" class="btn">Logg inn</button>
     </div>
   </div>
+
   <header>
-    <div>RECO v31.8 Selftest</div>
+    <div class="brand"><img src="assets/logo.svg" height="28"/> <strong>RECO v31.9</strong></div>
     <nav>
-      <a href="#/dashboard" class="active">Dashboard</a>
-      <a href="#/status">Status</a>
+      <a href="#/dashboard" class="navlink active">Dashboard</a>
+      <a href="#/kalkyle" class="navlink">Kalkyle Pro</a>
+      <a href="#/rapport" class="navlink">Rapport</a>
     </nav>
-    <span id="userBadge" class="badge">Ikke innlogget</span>
+    <div><span id="userBadge" class="badge">Ikke innlogget</span>
+      <button id="btnLogin" class="btn">Logg inn</button>
+      <button id="btnLogout" class="btn" style="display:none;background:#e11d48">Logg ut</button></div>
   </header>
+
   <main class="container">
-    <section id="view-dashboard">
-      <h1>Dashboard</h1>
-      <p>Denne versjonen er bare en test. Du skal se overlay for login først.</p>
+    <section id="view-dashboard" class="card">
+      <h2>Start</h2>
+      <p>Login-overlay → Kalkyle Pro (ICC + M1/T2/T3 + PDF/XLSX) → Rapport</p>
+      <div class="row"><a href="#/kalkyle" class="btn">Åpne Kalkyle Pro</a><a href="#/rapport" class="btn ghost">Åpne Rapport</a></div>
     </section>
-    <section id="view-status" style="display:none">
-      <h1>Status</h1>
-      <div id="checkList"></div>
-      <pre id="checkLog"></pre>
+
+    <section id="view-kalkyle" class="card" style="display:none">
+      <h2>Kalkyle Pro</h2>
+      <div class="card">
+        <h3>ICC-arbeidsposter</h3>
+        <div class="row">
+          <label>Struktur
+            <select id="iccStruktur"><option value="">(alle)</option><option>Himling</option><option>Vegg</option><option>Gulv</option><option>Våtrom</option></select>
+          </label>
+          <label style="flex:1">Søk
+            <input id="iccSearch" placeholder="f.eks. Male tak, 2 strøk"/>
+            <select id="iccList" size="6" style="width:100%"></select>
+          </label>
+          <button id="btnAddICC" class="btn">Legg til</button>
+        </div>
+        <div class="small">Leser `data/katalog_*.json`.</div>
+      </div>
+      <div class="card">
+        <h3>Prosjektinfo</h3>
+        <div class="row">
+          <label>Prosjektnavn <input id="pName"/></label>
+          <label>Kunde <input id="pClient"/></label>
+          <label>Saksnr <input id="pRef"/></label>
+          <label>Adresse <input id="pAddr"/></label>
+          <label>Påslag arbeid % <input id="pWork" type="number" value="0"/></label>
+          <label>Påslag materiell % <input id="pMat" type="number" value="10"/></label>
+          <label>MVA % <input id="pVAT" type="number" value="25"/></label>
+        </div>
+        <div class="row"><button id="btnExportPDF" class="btn">Eksporter PDF</button><button id="btnExportXLSX" class="btn ghost">Eksporter Excel</button></div>
+      </div>
+      <div class="card">
+        <table class="table" id="tblK">
+          <thead><tr><th>#</th><th>Rom</th><th>Struktur</th><th>Tittel</th><th>Enhet</th><th>Mengde</th><th>Arbeidspris</th><th>M1</th><th>T2</th><th>T3</th><th>Pris materiell</th><th>Linjesum</th><th></th></tr></thead>
+          <tbody></tbody>
+          <tfoot><tr><td colspan="10" style="text-align:right">Summer eks. MVA</td><td id="sumEx" class="badge">0</td><td></td></tr><tr><td colspan="10" style="text-align:right">Total inkl. MVA</td><td id="sumInc" class="badge">0</td><td></td></tr></tfoot>
+        </table>
+      </div>
+    </section>
+
+    <section id="view-rapport" class="card" style="display:none">
+      <h2>Rapport</h2>
+      <textarea id="rapportText" rows="8" style="width:100%"></textarea>
+      <div class="row"><button id="btnAnalyze" class="btn">Analyser</button><button id="btnExportReportPDF" class="btn ghost">Eksporter rapport (PDF)</button></div>
+      <div id="rapportResult"></div>
     </section>
   </main>
+
   <script type="module" src="js/app.js"></script>
 </body>
 </html>
